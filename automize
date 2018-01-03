@@ -4,7 +4,7 @@
 use PhpSchool\CliMenu\CliMenu;
 use PhpSchool\CliMenu\CliMenuBuilder;
 
-$rootOfApp = realpath(__DIR__ . "/../../../../");
+$rootOfApp = realpath(__DIR__ . "/../../../");
 
 require_once($rootOfApp . "/bootstrap.php");
 ini_set("memory_limit", "256M");
