@@ -7,7 +7,7 @@
     }
   ],
   "bin": [
-    "automize",
+    "automize"
   ],
   "require": {
     "php": "^7.0",
