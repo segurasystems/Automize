@@ -1,0 +1,27 @@
+{
+  "name": "segura/automize",
+  "authors": [
+    {
+      "name": "Matthew Baggett",
+      "email": "matt.baggett@segura.co.uk"
+    }
+  ],
+  "bin": [
+    "automize",
+  ],
+  "require": {
+    "php": "^7.0",
+    "php-school/cli-menu": "^2.0.0",
+    "kint-php/kint": "^2.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Zenderator\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Zenderator\\Test\\": "tests/"
+    }
+  }
+}
