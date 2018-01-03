@@ -12,7 +12,8 @@
   "require": {
     "php": "^7.0",
     "php-school/cli-menu": "^2.0.0",
-    "kint-php/kint": "^2.0"
+    "kint-php/kint": "^2.0",
+    "segura/zenderator": "^0.3.0"
   },
   "autoload": {
     "psr-4": {
