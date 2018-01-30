@@ -235,6 +235,11 @@ class Automize
                         ->cleanCodeComposerAutoloader()
                         ->runTests(false, true);
                     break;
+                case 'sleep':
+                    echo "Sleeping for {$value} seconds...";
+                    sleep($value);
+                    echo " [DONE]\n";
+                    break;
                 default:
                     foreach ($this->getApplicationSpecificCommands() as $command) {
                         $flag = str_replace(" ", "-", strtolower($command->getCommandName()));
@@ -262,6 +267,7 @@ class Automize
             -t --tests Run tests
             -T --tests-coverage Run tests with coverage
             -x --tests-stop-on-error Stop tests on Errors or Failures
+            --sleep <seconds> Sleep for time defined in seconds
             ";
         foreach ($this->getApplicationSpecificCommands() as $command) {
             $arguments.="--" . str_replace(" ", "-", strtolower($command->getCommandName())) . " Run {$command->getCommandName()}\n";
