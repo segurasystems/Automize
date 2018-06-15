@@ -11,13 +11,19 @@ ini_set("memory_limit", "256M");
 
 $scope = APP_CORE_NAME;
 
+/** @var \Segura\AppCore\Services\EnvironmentService $environment */
+$environment = $scope::Container()->get(\Segura\AppCore\Services\EnvironmentService::class);
+
+/** @var \Segura\AppCore\DbConfig|null $databaseConfigs */
 try {
     $databaseConfigs = $scope::Container()->get(\Segura\AppCore\DbConfig::class);
 }catch(\Segura\AppCore\Exceptions\DbConfigException $dbConfigException){
     $databaseConfigs = null;
 }
 
-$scope::waitForMySQLToBeReady();
+if($environment->isSet('MYSQL_HOST')) {
+    $scope::waitForMySQLToBeReady();
+}
 $sdkOutputPath = APP_ROOT . "/vendor/segura/lib" . strtolower(APP_NAME);
 
 $zenderator = new \Zenderator\Zenderator(
