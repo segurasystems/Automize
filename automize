@@ -26,10 +26,14 @@ if($environment->isSet('MYSQL_HOST')) {
 }
 $sdkOutputPath = APP_ROOT . "/vendor/segura/lib" . strtolower(APP_NAME);
 
-$zenderator = new \Zenderator\Zenderator(
-    $rootOfApp,
-    $databaseConfigs
-);
+if(class_exists("\Zenderator\Zenderator")) {
+    $zenderator = new \Zenderator\Zenderator(
+        $rootOfApp,
+        $databaseConfigs
+    );
+}else{
+    $zenderator = null;
+}
 
 $automize = new \Zenderator\Automize\Automize(
     $zenderator,
