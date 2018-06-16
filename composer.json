@@ -10,10 +10,12 @@
     "automize"
   ],
   "require": {
-    "php": "^7.0",
+    "php": "^7.1",
     "php-school/cli-menu": "^2.0.0",
-    "kint-php/kint": "^2.0",
-    "segura/zenderator": "*"
+    "kint-php/kint": "^2.0"
+  },
+  "suggest":{
+    "segura/zenderator": "Segura Core Zenderator"
   },
   "autoload": {
     "psr-4": {
