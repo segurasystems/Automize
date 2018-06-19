@@ -10,12 +10,12 @@ class AutomizeCommand
 {
     private $zenderator;
 
-    public function __construct(Zenderator $zenderator)
+    public function __construct(Zenderator $zenderator = null)
     {
         $this->zenderator = $zenderator;
     }
 
-    public function getZenderator() : Zenderator
+    public function getZenderator() : ?Zenderator
     {
         return $this->zenderator;
     }

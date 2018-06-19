@@ -10,7 +10,7 @@ use Zenderator\Zenderator;
 
 class Automize
 {
-    /** @var Zenderator */
+    /** @var Zenderator|null */
     private $zenderator;
     /** @var string */
     private $sdkOutputPath;
@@ -21,7 +21,7 @@ class Automize
     /** @var SelectableItem[] */
     private $applicationSpecificMenuItems;
     
-    public function __construct(Zenderator $zenderator, $sdkOutputPath)
+    public function __construct(Zenderator $zenderator = null, $sdkOutputPath)
     {
         $this->zenderator    = $zenderator;
         $this->sdkOutputPath = $sdkOutputPath;
@@ -204,31 +204,61 @@ class Automize
 
     private function runNonInteractive()
     {
-        $this->zenderator->disableWaitForKeypress();
+        if($this->zenderator) {
+            $this->zenderator->disableWaitForKeypress();
+        }
         $values = $this->checkForArguments();
         // non-interactive mode
         foreach ($values as $name => $value) {
             switch ($name) {
                 case 'zenderator':
+                    if(!$this->zenderator){
+                        echo "Cannot run {$name}, Zenderator is not installed.\n";
+                        break;
+                    }
                     $this->zenderator->makeZenderator();
                     break;
                 case 'clean':
+                    if(!$this->zenderator){
+                        echo "Cannot run {$name}, Zenderator is not installed.\n";
+                        break;
+                    }
                     $this->zenderator->cleanCodePHPCSFixer();
                     break;
                 case 'composer-optimise':
+                    if(!$this->zenderator){
+                        echo "Cannot run {$name}, Zenderator is not installed.\n";
+                        break;
+                    }
                     $this->zenderator->cleanCodeComposerAutoloader();
                     break;
                 case 'composer-update-segura':
+                    if(!$this->zenderator){
+                        echo "Cannot run {$name}, Zenderator is not installed.\n";
+                        break;
+                    }
                     $this->zenderator->updateSeguraDependencies();
                     break;
                 case 'sdk':
+                    if(!$this->zenderator){
+                        echo "Cannot run {$name}, Zenderator is not installed.\n";
+                        break;
+                    }
                     $this->zenderator->runSdkifier($value);
                     break;
                 case 'tests':
                 case 'tests-coverage':
+                    if(!$this->zenderator){
+                        echo "Cannot run {$name}, Zenderator is not installed.\n";
+                        break;
+                    }
                     $this->zenderator->runTests($values->offsetExists('tests-coverage'), $values->offsetExists('tests-stop-on-error'));
                     break;
                 case 'matt-mode':
+                    if(!$this->zenderator){
+                        echo "Cannot run {$name}, Zenderator is not installed.\n";
+                        break;
+                    }
                     $this->zenderator
                         ->makeZenderator()
                         ->cleanCodePHPCSFixer()
