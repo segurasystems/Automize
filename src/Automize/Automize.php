@@ -222,7 +222,7 @@ class Automize
                     $this->zenderator->updateSeguraDependencies();
                     break;
                 case 'sdk':
-                    $this->zenderator->runSdkifier();
+                    $this->zenderator->runSdkifier($value);
                     break;
                 case 'tests':
                 case 'tests-coverage':
@@ -260,7 +260,7 @@ class Automize
         $arguments = "
             Usage: {self} [options]
             -z --zenderator Run Zenderator
-            -s --sdk Run SDKifier
+            -s --sdk <path> Run SDKifier
             -c --clean Run Cleaner
             -o --composer-optimise Optimise composer autoloader
             -u --composer-update-segura Update Segura dependencies
