@@ -16,10 +16,8 @@
     "kint-php/kint": "^2.0",
     "mattketmo/camel": "^1.1",
     "gone.io/inflection": "^2.0",
-    "squizlabs/php_codesniffer": "^2.7",
     "deweller/cliopts": "^1.0",
     "gone.io/twig-extension-transform": "^1.0",
-    "fzaninotto/faker": "^1.6.0"
   },
   "suggest":{
     "segura/zenderator": "Segura Core Zenderator"
