@@ -17,7 +17,7 @@
     "mattketmo/camel": "^1.1",
     "gone.io/inflection": "^2.0",
     "deweller/cliopts": "^1.0",
-    "gone.io/twig-extension-transform": "^1.0",
+    "gone.io/twig-extension-transform": "^1.0"
   },
   "suggest":{
     "segura/zenderator": "Segura Core Zenderator"
