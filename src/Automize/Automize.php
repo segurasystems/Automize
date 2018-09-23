@@ -72,11 +72,13 @@ class Automize
                         /** @var AutomizeCommand $command */
                         $command = new $class($this->zenderator);
                         //\Kint::dump($command, $class, $file);exit;
-                        $commands[] = $command;
+                        $commands[$class] = $command;
                     }
                 }
             }
         }
+
+        ksort($commands);
 
         return $commands;
     }
