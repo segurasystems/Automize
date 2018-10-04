@@ -250,11 +250,16 @@ class Automize
                     break;
                 case 'tests':
                 case 'tests-coverage':
+                case 'tests-suite':
                     if(!$this->zenderator){
                         echo "Cannot run {$name}, Zenderator is not installed.\n";
                         break;
                     }
-                    $this->zenderator->runTests($values->offsetExists('tests-coverage'), $values->offsetExists('tests-stop-on-error'));
+                    $this->zenderator->runTests(
+                        $values->offsetExists('tests-coverage'),
+                        $values->offsetExists('tests-stop-on-error'),
+                        $values->offsetExists('tests-suite') ? $values->offsetGet('tests-suite') : ''
+                    );
                     break;
                 case 'matt-mode':
                     if(!$this->zenderator){
@@ -298,6 +303,7 @@ class Automize
             -u --composer-update-segura Update Segura dependencies
             -t --tests Run tests
             -T --tests-coverage Run tests with coverage
+            -S --tests-suite <testSuite> Run a particular suite of tests
             -x --tests-stop-on-error Stop tests on Errors or Failures
             --sleep <seconds> Sleep for time defined in seconds
             ";
