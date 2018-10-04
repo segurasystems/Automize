@@ -250,7 +250,6 @@ class Automize
                     break;
                 case 'tests':
                 case 'tests-coverage':
-                case 'tests-suite':
                     if(!$this->zenderator){
                         echo "Cannot run {$name}, Zenderator is not installed.\n";
                         break;
