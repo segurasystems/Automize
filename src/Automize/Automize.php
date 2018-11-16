@@ -248,11 +248,16 @@ class Automize
                     break;
                 case 'tests':
                 case 'tests-coverage':
+                case 'tests-debug':
                     if(!$this->zenderator){
                         echo "Cannot run {$name}, Zenderator is not installed.\n";
                         break;
                     }
-                    $this->zenderator->runTests($values->offsetExists('tests-coverage'), $values->offsetExists('tests-stop-on-error'));
+                    $this->zenderator->runTests(
+                        $values->offsetExists('tests-coverage'), 
+                        $values->offsetExists('tests-stop-on-error'),
+                        $values->offsetExists('tests-debug')
+                    );
                     break;
                 case 'matt-mode':
                     if(!$this->zenderator){
@@ -297,6 +302,7 @@ class Automize
             -t --tests Run tests
             -T --tests-coverage Run tests with coverage
             -x --tests-stop-on-error Stop tests on Errors or Failures
+            --tests-debug run tests with debug flag
             --sleep <seconds> Sleep for time defined in seconds
             ";
         foreach ($this->getApplicationSpecificCommands() as $command) {
