@@ -72,11 +72,13 @@ class Automize
                         /** @var AutomizeCommand $command */
                         $command = new $class($this->zenderator);
                         //\Kint::dump($command, $class, $file);exit;
-                        $commands[] = $command;
+                        $commands[$class] = $command;
                     }
                 }
             }
         }
+
+        ksort($commands);
 
         return $commands;
     }
@@ -254,8 +256,9 @@ class Automize
                         break;
                     }
                     $this->zenderator->runTests(
-                        $values->offsetExists('tests-coverage'), 
+                        $values->offsetExists('tests-coverage'),
                         $values->offsetExists('tests-stop-on-error'),
+                        $values->offsetExists('tests-suite') ? $values->offsetGet('tests-suite') : '',
                         $values->offsetExists('tests-debug')
                     );
                     break;
