@@ -1,9 +1,12 @@
 {
-  "name": "segura/automize",
+  "name": "gone.io/automize",
   "authors": [
     {
       "name": "Matthew Baggett",
-      "email": "matt.baggett@segura.co.uk"
+      "email": "matthew@baggett.me"
+    },{
+      "name": "Segura Systems",
+      "email": "support@segura.co.uk"
     }
   ],
   "bin": [
@@ -11,7 +14,7 @@
   ],
   "require": {
     "php": "^7.1",
-    "segura/appcore": "*",
+    "gone.io/appcore": "*",
     "php-school/cli-menu": "^2.0.0",
     "kint-php/kint": "^2.0",
     "mattketmo/camel": "^1.1",
@@ -21,7 +24,7 @@
     "gone.io/twig-extension-inflection": "^1.0"
   },
   "suggest":{
-    "segura/zenderator": "Segura Core Zenderator"
+    "gone.io/zenderator": "Gone Core Zenderator"
   },
   "autoload": {
     "psr-4": {

@@ -26,7 +26,7 @@ class Automize
         $this->zenderator    = $zenderator;
         $this->sdkOutputPath = $sdkOutputPath;
 
-        $this->automizeInstanceName = 'Segura Automizer - ' . APP_NAME;
+        $this->automizeInstanceName = 'Gone.io Automizer - ' . APP_NAME;
     }
 
     private function vpnCheck()
@@ -59,7 +59,7 @@ class Automize
         $applicationSpecificCommandsLocations =
         [
             $appScope        => APP_ROOT . "/src/Commands",
-            'Segura\AppCore' => APPCORE_ROOT . "/src/Commands",
+            'Gone\AppCore' => APPCORE_ROOT . "/src/Commands",
         ];
 
         foreach ($applicationSpecificCommandsLocations as $appNamespace => $applicationSpecificCommandsLocation) {
@@ -166,13 +166,6 @@ class Automize
                 ->waitForKeypress();
             $menu->redraw();
         });
-        $composerSubMenu->addItem('Update Segura-Specific Dependencies', function (CliMenu $menu) use ($scope) {
-            /** @var Automize $scope */
-            $scope->zenderator
-                ->updateSeguraDependencies()
-                ->waitForKeypress();
-            $menu->redraw();
-        });
         $composerSubMenu->end();
         $this->menu->addItem('Run Clean', function (CliMenu $menu) use ($scope) {
             /** @var Automize $scope */
@@ -234,13 +227,6 @@ class Automize
                     }
                     $this->zenderator->cleanCodeComposerAutoloader();
                     break;
-                case 'composer-update-segura':
-                    if(!$this->zenderator){
-                        echo "Cannot run {$name}, Zenderator is not installed.\n";
-                        break;
-                    }
-                    $this->zenderator->updateSeguraDependencies();
-                    break;
                 case 'sdk':
                     if(!$this->zenderator){
                         echo "Cannot run {$name}, Zenderator is not installed.\n";
@@ -301,7 +287,6 @@ class Automize
             -s --sdk <path> Run SDKifier
             -c --clean Run Cleaner
             -o --composer-optimise Optimise composer autoloader
-            -u --composer-update-segura Update Segura dependencies
             -t --tests Run tests
             -T --tests-coverage Run tests with coverage
             -x --tests-stop-on-error Stop tests on Errors or Failures

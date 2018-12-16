@@ -11,20 +11,20 @@ ini_set("memory_limit", "256M");
 
 $scope = APP_CORE_NAME;
 
-/** @var \Segura\AppCore\Services\EnvironmentService $environment */
-$environment = $scope::Container()->get(\Segura\AppCore\Services\EnvironmentService::class);
+/** @var \Gone\AppCore\Services\EnvironmentService $environment */
+$environment = $scope::Container()->get(\Gone\AppCore\Services\EnvironmentService::class);
 
-/** @var \Segura\AppCore\DbConfig|null $databaseConfigs */
+/** @var \Gone\AppCore\DbConfig|null $databaseConfigs */
 try {
-    $databaseConfigs = $scope::Container()->get(\Segura\AppCore\DbConfig::class);
-}catch(\Segura\AppCore\Exceptions\DbConfigException $dbConfigException){
+    $databaseConfigs = $scope::Container()->get(\Gone\AppCore\DbConfig::class);
+}catch(\Gone\AppCore\Exceptions\DbConfigException $dbConfigException){
     $databaseConfigs = null;
 }
 
 if($environment->isSet('MYSQL_HOST')) {
     $scope::waitForMySQLToBeReady();
 }
-$sdkOutputPath = APP_ROOT . "/vendor/segura/lib" . strtolower(APP_NAME);
+$sdkOutputPath = APP_ROOT . "/vendor/gone.io/lib" . strtolower(APP_NAME);
 
 if(class_exists("\Zenderator\Zenderator")) {
     $zenderator = new \Zenderator\Zenderator(
