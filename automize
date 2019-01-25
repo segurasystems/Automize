@@ -37,6 +37,7 @@ if(class_exists("\Zenderator\Zenderator")) {
 
 $automize = new \Zenderator\Automize\Automize(
     $zenderator,
-    $sdkOutputPath
+    $sdkOutputPath,
+    $rootOfApp
 );
 $automize->run();
