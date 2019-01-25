@@ -39,8 +39,6 @@ class Automize
         $this->automizeInstanceName = 'Automizer - ' . APP_NAME;
 
         $this->setup($rootOfApp);
-//        var_dump($this->config);
-//        die();
     }
 
     private function setup($rootOfApp) {
@@ -58,7 +56,7 @@ class Automize
         $config = file_get_contents($configPath);
         $config = \Symfony\Component\Yaml\Yaml::parse($config);
         $config = $config["automize"] ?? [];
-        $config = array_merge_recursive($this->_defaultConfig,$config);
+        $config = array_replace_recursive($this->_defaultConfig,$config);
         return $config;
     }
 
