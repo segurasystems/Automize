@@ -21,13 +21,15 @@ class Automize
     /** @var SelectableItem[] */
     private $applicationSpecificMenuItems;
 
+    private $rootOfApp;
+
 
     private $_defaultConfig = [
         "colour" => [
             "foreground" => "15",
             "background" => "159",
         ],
-        "logoPath" => __DIR__ . "/../../assets/logo.ascii",
+        "logoPath" => "/vendor/gone.io/automize/assets/logo.ascii",
     ];
     private $config;
 
@@ -37,11 +39,12 @@ class Automize
         $this->sdkOutputPath = $sdkOutputPath;
 
         $this->automizeInstanceName = 'Automizer - ' . APP_NAME;
-
+        
         $this->setup($rootOfApp);
     }
 
     private function setup($rootOfApp) {
+        $this->rootOfApp = $rootOfApp;
         $this->config = $this->getConfig($rootOfApp);
     }
 
@@ -121,8 +124,10 @@ class Automize
         $this->menu->setBackgroundColour($this->config["colour"]["background"]);
         $this->menu->setForegroundColour($this->config["colour"]["foreground"]);
         $this->menu->setTitle($this->automizeInstanceName);
-        $this->menu->addAsciiArt(file_get_contents($this->config["logoPath"]), AsciiArtItem::POSITION_LEFT);
-        $this->menu->addLineBreak('-');
+        if(file_exists($this->rootOfApp . "/" . $this->config["logoPath"])) {
+            $this->menu->addAsciiArt(file_get_contents($this->rootOfApp . "/" . $this->config["logoPath"]), AsciiArtItem::POSITION_CENTER);
+            $this->menu->addLineBreak('-');
+        }
 
         $this->menu->addItem('Run Zenderator', function (CliMenu $menu) use ($scope) {
             /** @var Automize $scope */
