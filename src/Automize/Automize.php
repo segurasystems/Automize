@@ -20,13 +20,50 @@ class Automize
     private $automizeInstanceName;
     /** @var SelectableItem[] */
     private $applicationSpecificMenuItems;
-    
-    public function __construct(Zenderator $zenderator = null, $sdkOutputPath)
+
+
+    private $_defaultConfig = [
+        "colour" => [
+            "256" => [
+                "foreground" => "40",
+                "background" => "92",
+            ],
+            "foreground" => "white",
+            "background" => "magenta",
+        ],
+        "logoPath" => __DIR__ . "/../../assets/logo.ascii",
+    ];
+    private $config;
+
+    public function __construct(Zenderator $zenderator = null, $sdkOutputPath, $rootOfApp)
     {
         $this->zenderator    = $zenderator;
         $this->sdkOutputPath = $sdkOutputPath;
 
-        $this->automizeInstanceName = 'Gone.io Automizer - ' . APP_NAME;
+        $this->automizeInstanceName = 'Automizer - ' . APP_NAME;
+
+        $this->setup($rootOfApp);
+//        var_dump($this->config);
+//        die();
+    }
+
+    private function setup($rootOfApp) {
+        $this->config = $this->getConfig($rootOfApp);
+    }
+
+    public function getConfig($rootOfApp){
+        if (file_exists($rootOfApp . "/zenderator.yml")) {
+            $configPath = $rootOfApp . "/zenderator.yml";
+        } elseif (file_exists($rootOfApp . "/zenderator.yml.dist")) {
+            $configPath = $rootOfApp . "/zenderator.yml.dist";
+        } else {
+            die("Missing Zenderator config /zenderator.yml or /zenderator.yml.dist\nThere is an example in /vendor/bin/segura/zenderator/zenderator.example.yml\n\n");
+        }
+        $config = file_get_contents($configPath);
+        $config = \Symfony\Component\Yaml\Yaml::parse($config);
+        $config = $config["automize"] ?? [];
+        $config = array_merge_recursive($this->_defaultConfig,$config);
+        return $config;
     }
 
     private function vpnCheck()
@@ -57,10 +94,10 @@ class Automize
         $appScopeBits                         = explode('\\', APP_CORE_NAME);
         $appScope                             = implode('\\', array_slice($appScopeBits, 0, -1));
         $applicationSpecificCommandsLocations =
-        [
-            $appScope        => APP_ROOT . "/src/Commands",
-            'Gone\AppCore' => APPCORE_ROOT . "/src/Commands",
-        ];
+            [
+                $appScope        => APP_ROOT . "/src/Commands",
+                'Gone\AppCore' => APPCORE_ROOT . "/src/Commands",
+            ];
 
         foreach ($applicationSpecificCommandsLocations as $appNamespace => $applicationSpecificCommandsLocation) {
             if (file_exists($applicationSpecificCommandsLocation)) {
@@ -87,10 +124,10 @@ class Automize
     {
         $scope      = $this;
         $this->menu = new CliMenuBuilder();
-        $this->menu->setBackgroundColour('red');
-        $this->menu->setForegroundColour('white');
+        $this->menu->setBackgroundColour(/*$this->config["colour"]["256"]["background"],*/$this->config["colour"]["background"]);
+        $this->menu->setForegroundColour(/*$this->config["colour"]["256"]["foreground"],*/$this->config["colour"]["foreground"]);
         $this->menu->setTitle($this->automizeInstanceName);
-        $this->menu->addAsciiArt(file_get_contents(__DIR__ . "/../../assets/logo.ascii"), AsciiArtItem::POSITION_LEFT);
+        $this->menu->addAsciiArt(file_get_contents($this->config["logoPath"]), AsciiArtItem::POSITION_LEFT);
         $this->menu->addLineBreak('-');
 
         $this->menu->addItem('Run Zenderator', function (CliMenu $menu) use ($scope) {
@@ -178,7 +215,7 @@ class Automize
         $this->menu->addLineBreak('-');
         $this->menu = $this->menu->build();
     }
-    
+
     public function run()
     {
         $this->getApplicationSpecificMenuItems();
