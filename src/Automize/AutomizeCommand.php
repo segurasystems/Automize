@@ -20,6 +20,10 @@ class AutomizeCommand
         return $this->zenderator;
     }
 
+    public function getArguments() {
+        return [];
+    }
+
     public function getCommandName() : string
     {
         $transformer = new CaseTransformer(new StudlyCaps(), new SnakeCase());
