@@ -75,7 +75,12 @@ class Automize
     {
         $commands = $this->getApplicationSpecificCommands();
         foreach ($commands as $command) {
-            $item                                 = new SelectableItem($command->getCommandName(), [$command, "action"]);
+            $item = new SelectableItem($command->getCommandName(), function () use ($command) {
+                if(method_exists($command,"beforeAction")){
+                    $command->beforeAction();
+                }
+                $command->action();
+            });
             $this->applicationSpecificMenuItems[] = $item;
         }
     }
