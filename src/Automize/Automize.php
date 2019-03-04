@@ -319,8 +319,12 @@ class Automize
                         if ($flag == $name) {
                             echo "Running {$command->getCommandName()}...\n";
                             if ($values->offsetExists($flag)) {
-                                if(method_exists($command,"beforeAction")){
-                                    $command->beforeAction();
+                                if (method_exists($command, "beforeAction")) {
+                                    if (empty($value)) {
+                                        $command->beforeAction();
+                                    } else {
+                                        $command->beforeAction($value);
+                                    }
                                 }
                                 $command->action();
                             }
