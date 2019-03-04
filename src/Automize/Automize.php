@@ -346,7 +346,16 @@ class Automize
             --sleep <seconds> Sleep for time defined in seconds
             ";
         foreach ($this->getApplicationSpecificCommands() as $command) {
-            $arguments.="--" . str_replace(" ", "-", strtolower($command->getCommandName())) . " Run {$command->getCommandName()}\n";
+
+            $args = $command->getArguments();
+
+            $arguments.="--" . str_replace(" ", "-", strtolower($command->getCommandName()));
+
+            foreach ($args as $arg=>$default){
+                $arguments .= " <{$arg}>";
+            }
+
+            $arguments .= " Run {$command->getCommandName()}\n";
         }
         $arguments.="-M --matt-mode Shortcode for -zcotx\n";
         $arguments.="-h --help Show this help\n";
