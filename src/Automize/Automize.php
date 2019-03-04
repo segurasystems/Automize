@@ -101,7 +101,12 @@ class Automize
                 foreach (new \DirectoryIterator($applicationSpecificCommandsLocation) as $file) {
                     $commandSuffix = "Command.php";
                     $offset        = strlen($commandSuffix);
-                    if (!$file->isDot() && $file->getExtension() == "php" && substr($file->getFilename(), strlen($file->getFilename()) - $offset, $offset) == $commandSuffix) {
+                    if (!$file->isDot()
+                        && $file->getExtension() == "php"
+                        && substr($file->getFilename(), strlen($file->getFilename()) - $offset, $offset) == $commandSuffix
+                        && !(strpos($file->getFilename(),"Base") === 0)
+                        && !(strpos($file->getFilename(),"Abstract") === 0)
+                    ) {
                         $class = $appNamespace . "\\Commands\\" . str_replace($commandSuffix, "", $file->getFilename()) . "Command";
                         /** @var AutomizeCommand $command */
                         $command = new $class($this->zenderator);
