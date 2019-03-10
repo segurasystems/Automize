@@ -23,7 +23,7 @@
     ],
   "require": {
     "php": "^7.1",
-    "gone.io/appcore": "dev-segura",
+    "gone.io/appcore": "dev-SOLID_MVC",
     "php-school/cli-menu": "^3.0.0",
     "kint-php/kint": "^2.0",
     "mattketmo/camel": "^1.1",
